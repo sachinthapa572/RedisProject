@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "a6176fba-f897-4601-9904-82a1002c15f2",
+		"name": "NewsApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "37291286"
+	},
+	"item": [
+		{
+			"name": "news",
+			"item": [
+				{
+					"name": "add news",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Technical Writting sd",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "this is the most onterest subject",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef912bb-cfcc-4c80-ad39-27c62ec745dc"
+								}
+							]
+						},
+						"url": "http://localhost:3000/api/news"
+					},
+					"response": []
+				},
+				{
+					"name": "getnews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/news/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Update news",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "{{$randomJobTitle}}",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "{{$randomLoremText}}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef6ceca-5b94-4980-8ff8-1d025cfd2811"
+								}
+							]
+						},
+						"url": "http://localhost:3000/api/news/2"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "{{$randomJobTitle}}",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "{{$randomLoremText}}",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef6ceca-5b94-4980-8ff8-1d025cfd2811"
+								}
+							]
+						},
+						"url": "http://localhost:3000/api/news/4"
+					},
+					"response": []
+				},
+				{
+					"name": "get news",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/api/news"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "signin",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Sachin Thapa\",\r\n  \"email\": \"test@gmail.com\",\r\n  \"password\": \"ThisisbestCar\",\r\n  \"password_confirmation\": \"ThisisbestCar\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/auth/register"
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"test@gmail.com\",\r\n  \"password\": \"ThisisbestCar\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "profile update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "profile",
+							"type": "file",
+							"src": "postman-cloud:///1ef912bb-cfcc-4c80-ad39-27c62ec745dc"
+						}
+					]
+				},
+				"url": "http://localhost:3000/api/profile/1"
+			},
+			"response": []
+		},
+		{
+			"name": "me",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3000/api/profile"
+			},
+			"response": []
+		},
+		{
+			"name": "me Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/send-email?email=thapasachin123@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"send-email"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "thapasachin123@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlNhY2hpbiBUaGFwYSIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJwcm9maWxlIjpudWxsLCJpYXQiOjE3MzUwNDU5NzAsImV4cCI6MTc2NjU4MTk3MH0.HzTfLcBoV4dGs_Ne1WW28V6HX11exG3wr1OKHCPMzEM"
+		}
+	]
+}
