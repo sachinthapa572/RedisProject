@@ -7,6 +7,49 @@ import redisCache from "../DB/redis.config.js";
 import logger from "../config/logger.js";
 
 class NewsController {
+  /**
+   * @swagger
+   * /news:
+   *   get:
+   *     summary: Get all news
+   *     tags: [News]
+   *     parameters:
+   *       - in: query
+   *         name: page
+   *         schema:
+   *           type: integer
+   *         description: Page number
+   *       - in: query
+   *         name: limit
+   *         schema:
+   *           type: integer
+   *         description: Number of items per page
+   *     responses:
+   *       200:
+   *         description: List of news
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                 news:
+   *                   type: array
+   *                   items:
+   *                     $ref: '#/components/schemas/News'
+   *                 metadata:
+   *                   type: object
+   *                   properties:
+   *                     totalPages:
+   *                       type: integer
+   *                     currentPage:
+   *                       type: integer
+   *                     currentLimit:
+   *                       type: integer
+   *       500:
+   *         description: Internal server error
+   */
   static async index(req, res) {
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
@@ -49,6 +92,34 @@ class NewsController {
     });
   }
 
+  /**
+   * @swagger
+   * /news:
+   *   post:
+   *     summary: Create a new news
+   *     tags: [News]
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         multipart/form-data:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               title:
+   *                 type: string
+   *               content:
+   *                 type: string
+   *               image:
+   *                 type: string
+   *                 format: binary
+   *     responses:
+   *       200:
+   *         description: News created successfully
+   *       400:
+   *         description: Validation error
+   *       500:
+   *         description: Internal server error
+   */
   static async store(req, res) {
     try {
       const user = req.user;
@@ -107,6 +178,34 @@ class NewsController {
     }
   }
 
+  /**
+   * @swagger
+   * /news/{id}:
+   *   get:
+   *     summary: Get a news by ID
+   *     tags: [News]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         schema:
+   *           type: integer
+   *         required: true
+   *         description: News ID
+   *     responses:
+   *       200:
+   *         description: News details
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                 news:
+   *                   $ref: '#/components/schemas/News'
+   *       500:
+   *         description: Internal server error
+   */
   static async show(req, res) {
     try {
       const { id } = req.params;
@@ -133,6 +232,41 @@ class NewsController {
     }
   }
 
+  /**
+   * @swagger
+   * /news/{id}:
+   *   put:
+   *     summary: Update a news by ID
+   *     tags: [News]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         schema:
+   *           type: integer
+   *         required: true
+   *         description: News ID
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         multipart/form-data:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               title:
+   *                 type: string
+   *               content:
+   *                 type: string
+   *               image:
+   *                 type: string
+   *                 format: binary
+   *     responses:
+   *       200:
+   *         description: News updated successfully
+   *       400:
+   *         description: Validation error
+   *       500:
+   *         description: Internal server error
+   */
   static async update(req, res) {
     try {
       const { id } = req.params;
@@ -188,6 +322,25 @@ class NewsController {
     }
   }
 
+  /**
+   * @swagger
+   * /news/{id}:
+   *   delete:
+   *     summary: Delete a news by ID
+   *     tags: [News]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         schema:
+   *           type: integer
+   *         required: true
+   *         description: News ID
+   *     responses:
+   *       200:
+   *         description: News deleted successfully
+   *       500:
+   *         description: Internal server error
+   */
   static async destroy(req, res) {
     try {
       const { id } = req.params;

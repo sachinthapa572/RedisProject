@@ -5,6 +5,9 @@ import fileUpload from "express-fileupload";
 import helmet from "helmet";
 import cors from "cors";
 import { limiter } from "./config/ratelimiter.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
+import { options } from "./config/swagger.js";
 const PORT = process.env.PORT || 8000;
 
 // * Middleware
@@ -15,6 +18,9 @@ app.use(fileUpload());
 app.use(helmet());
 app.use(cors());
 app.use(limiter);
+
+const specs = swaggerJsdoc(options);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.get("/", (req, res) => {
   return res.json({ message: "Hello It's working.." });
