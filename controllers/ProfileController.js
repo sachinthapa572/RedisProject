@@ -1,7 +1,43 @@
 import prisma from "../DB/db.config.js";
 import { generateRandomNum, imageValidator } from "../utils/helper.js";
 
+/**
+ * @swagger
+ * tags:
+ *   name: Profile
+ *   description: Profile management endpoints
+ */
 class ProfileController {
+  /**
+   * @swagger
+   * /profile:
+   *   get:
+   *     summary: Get user profile
+   *     tags: [Profile]
+   *     responses:
+   *       200:
+   *         description: User profile retrieved successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: integer
+   *                 user:
+   *                   type: object
+   *                   properties:
+   *                     id:
+   *                       type: integer
+   *                     name:
+   *                       type: string
+   *                     email:
+   *                       type: string
+   *                     profile:
+   *                       type: string
+   *       500:
+   *         description: Internal server error
+   */
   static async index(req, res) {
     try {
       const user = req.user;
@@ -11,7 +47,37 @@ class ProfileController {
     }
   }
 
-
+  /**
+   * @swagger
+   * /profile/{id}:
+   *   put:
+   *     summary: Update user profile
+   *     tags: [Profile]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         schema:
+   *           type: integer
+   *         required: true
+   *         description: User ID
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         multipart/form-data:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               profile:
+   *                 type: string
+   *                 format: binary
+   *     responses:
+   *       200:
+   *         description: Profile updated successfully
+   *       400:
+   *         description: Validation error
+   *       500:
+   *         description: Internal server error
+   */
   static async update(req, res) {
     try {
       const { id } = req.params;

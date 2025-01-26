@@ -6,7 +6,42 @@ import prisma from "../DB/db.config.js";
 import { emailQueue, emailQueueName } from "../jobs/SendEmailJob.js";
 import { loginSchema, registerSchema } from "../validations/authValidation.js";
 
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Authentication endpoints
+ */
 class AuthController {
+    /**
+     * @swagger
+     * /auth/register:
+     *   post:
+     *     summary: Register a new user
+     *     tags: [Auth]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               name:
+     *                 type: string
+     *               email:
+     *                 type: string
+     *               password:
+     *                 type: string
+     *               password_confirmation:
+     *                 type: string
+     *     responses:
+     *       200:
+     *         description: User created successfully
+     *       400:
+     *         description: Validation error
+     *       500:
+     *         description: Internal server error
+     */
     static async register(req, res) {
         try {
             const body = req.body;
@@ -54,6 +89,31 @@ class AuthController {
         }
     }
 
+    /**
+     * @swagger
+     * /auth/login:
+     *   post:
+     *     summary: Login a user
+     *     tags: [Auth]
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               email:
+     *                 type: string
+     *               password:
+     *                 type: string
+     *     responses:
+     *       200:
+     *         description: Logged in
+     *       400:
+     *         description: Validation error
+     *       500:
+     *         description: Internal server error
+     */
     static async login(req, res) {
         try {
             const body = req.body;
@@ -112,6 +172,25 @@ class AuthController {
         }
     }
 
+    /**
+     * @swagger
+     * /send-email:
+     *   get:
+     *     summary: Send a test email
+     *     tags: [Auth]
+     *     parameters:
+     *       - in: query
+     *         name: email
+     *         schema:
+     *           type: string
+     *         required: true
+     *         description: Email address to send the test email to
+     *     responses:
+     *       200:
+     *         description: Job added successfully to send the Mail
+     *       500:
+     *         description: Internal server error
+     */
     // * Send test email
     static async sendTestEmail(req, res) {
         try {
